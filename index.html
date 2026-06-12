@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="OSF 2026">
+  <meta name="theme-color" content="#0f0f0f">
+  <title>Ohio Suppressor Fest 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0f0f0f;
+      --bg-card: #161616;
+      --bg-card-elevated: rgba(255,255,255,0.04);
+      --bg-card-highlight: rgba(255,255,255,0.06);
+      --border: 1px solid rgba(255,255,255,0.08);
+      --accent: #d4a017;
+      --text: #f0f0f0;
+      --text-muted: #999;
+      --text-dim: #666;
+      --green: #4ade80;
+      --blue: #60a5fa;
+      --purple: #a78bfa;
+      --coral: #f87171;
+      --radius: 9px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: var(--bg);
+      min-height: 100dvh;
+      padding-bottom: env(safe-area-inset-bottom, 16px);
+      padding-bottom: max(env(safe-area-inset-bottom, 0px), 24px);
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ─────────────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,15,15,0.92);
+      backdrop-filter: saturate(180%) blur(16px);
+      -webkit-backdrop-filter: saturate(180%) blur(16px);
+      border-bottom: var(--border);
+      padding: 12px 18px;
+      padding-top: max(12px, env(safe-area-inset-top, 12px));
+    }
+
+    .header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .header-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      line-height: 1.2;
+    }
+
+    .header-title span {
+      color: var(--accent);
+    }
+
+    .header-conf {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .header-meta {
+      margin-top: 3px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ── MAIN CONTENT ───────────────────────────────── */
+    .content {
+      padding: 0 16px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ── TICKET STRIP ───────────────────────────────── */
+    .ticket-strip {
+      padding: 14px 16px;
+      border-bottom: var(--border);
+      background: var(--bg-card);
+    }
+
+    .ticket-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.06);
+      border: var(--border);
+      border-radius: 99px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    .pill.accent {
+      color: var(--accent);
+      border-color: rgba(212,160,23,0.3);
+    }
+
+    /* ── SECTIONS ───────────────────────────────────── */
+    .section {
+      padding: 22px 0 0;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+
+    /* ── TIMELINE ───────────────────────────────────── */
+    .timeline {
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .tl-entry {
+      display: flex;
+      gap: 14px;
+      padding: 0 0 4px;
+      position: relative;
+    }
+
+    .tl-dot-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      padding-top: 16px;
+      width: 15px;
+      z-index: 1;
+    }
+
+    .tl-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .tl-dot.gray   { background: #666; }
+    .tl-dot.green  { background: var(--green); }
+    .tl-dot.blue   { background: var(--blue); }
+    .tl-dot.purple { background: var(--purple); }
+    .tl-dot.amber  { background: var(--accent); }
+    .tl-dot.coral  { background: var(--coral); }
+
+    .tl-card {
+      flex: 1;
+      background: transparent;
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      margin-bottom: 4px;
+      min-width: 0;
+    }
+
+    .tl-card.highlighted {
+      background: var(--bg-card-elevated);
+      border: var(--border);
+    }
+
+    /* THE critical entry — 10:45 AM check-in */
+    .tl-card.critical {
+      background: rgba(212,160,23,0.07);
+      border: var(--border);
+      border-left: 4px solid var(--accent);
+      padding-left: 14px;
+    }
+
+    .tl-time {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.01em;
+      margin-bottom: 2px;
+    }
+
+    .tl-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+
+    .tl-card.critical .tl-title {
+      font-size: 15px;
+    }
+
+    .tl-sub {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .tl-card.critical .tl-sub {
+      color: #bbb;
+    }
+
+    .flag-icon {
+      display: inline-block;
+      margin-right: 2px;
+    }
+
+    /* ── DEMO PICKS ─────────────────────────────────── */
+    .demo-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .demo-card {
+      background: var(--bg-card);
+      border: var(--border);
+      border-radius: var(--radius);
+      padding: 14px 15px;
+    }
+
+    .demo-card.top-pick {
+      border-color: rgba(212,160,23,0.4);
+      border-top: 3px solid var(--accent);
+    }
+
+    .demo-pick-num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .demo-card.top-pick .demo-pick-num {
+      color: var(--accent);
+    }
+
+    .demo-brand {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .demo-model {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      margin-top: 1px;
+    }
+
+    .demo-rationale {
+      font-size: 13px;
+      color: #aaa;
+      line-height: 1.55;
+    }
+
+    /* ── VENDORS ────────────────────────────────────── */
+    .vendor-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .vendor-card {
+      background: var(--bg-card);
+      border: var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+    }
+
+    .vendor-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .vendor-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .badge-primary {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(212,160,23,0.15);
+      border: 1px solid rgba(212,160,23,0.3);
+      border-radius: 4px;
+      padding: 2px 6px;
+      white-space: nowrap;
+    }
+
+    .vendor-note {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* ── KEY INFO ───────────────────────────────────── */
+    .info-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border: var(--border);
+      border-radius: var(--radius);
+      padding: 14px 15px;
+    }
+
+    .info-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .info-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 2px;
+    }
+
+    .info-card a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .info-card a:active {
+      opacity: 0.7;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    .site-footer {
+      margin-top: 32px;
+      padding: 20px 16px 8px;
+      text-align: center;
+      border-top: var(--border);
+    }
+
+    .footer-ticket {
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.01em;
+      margin-bottom: 6px;
+    }
+
+    .footer-tip {
+      font-size: 11.5px;
+      color: rgba(212,160,23,0.6);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-top">
+      <div class="header-title">Ohio Suppressor <span>Fest 2026</span></div>
+      <div class="header-conf">Conf: HSPPRSSRFST20C87007T</div>
+    </div>
+    <div class="header-meta">June 13, 2026 &middot; Black Wing Shooting Center &middot; Delaware, OH</div>
+  </header>
+
+  <!-- ── TICKET STRIP ───────────────────────────────── -->
+  <div class="ticket-strip">
+    <div class="ticket-pills">
+      <span class="pill accent">Standard Access &middot; 11:00 AM window</span>
+      <span class="pill">Waiver: Complete ✓</span>
+      <span class="pill">Lunch: Food Truck ✓</span>
+      <span class="pill">Seminar: 1:30 PM Maintenance</span>
+    </div>
+  </div>
+
+  <!-- ── CONTENT ────────────────────────────────────── -->
+  <div class="content">
+
+    <!-- ITINERARY -->
+    <div class="section">
+      <div class="section-title">Itinerary</div>
+      <div class="timeline">
+
+        <!-- 1. Depart Lakewood -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot gray"></div></div>
+          <div class="tl-card">
+            <div class="tl-time">8:45 AM</div>
+            <div class="tl-title">Depart Lakewood</div>
+            <div class="tl-sub">1350 Giel Ave &rarr; I-71 S &middot; ~50 mi, ~50 min</div>
+          </div>
+        </div>
+
+        <!-- 2. Arrive Black Wing -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot gray"></div></div>
+          <div class="tl-card">
+            <div class="tl-time">~9:40 AM</div>
+            <div class="tl-title">Arrive Black Wing</div>
+            <div class="tl-sub">3722 Marysville Rd, Delaware, OH &middot; Park, get oriented</div>
+          </div>
+        </div>
+
+        <!-- 3. Browse vendor tables -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot green"></div></div>
+          <div class="tl-card">
+            <div class="tl-time">9:40 AM</div>
+            <div class="tl-title">Browse vendor tables</div>
+            <div class="tl-sub">Talk to reps and handle display product from all 9 brands before your window</div>
+          </div>
+        </div>
+
+        <!-- 4. CHECK-IN — CRITICAL -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot coral"></div></div>
+          <div class="tl-card critical">
+            <div class="tl-time">10:45 AM</div>
+            <div class="tl-title"><span class="flag-icon">⚑</span> Check in at Indoor Range counter</div>
+            <div class="tl-sub">15-min slots are first-come, first-served — be here by 10:45. Bring ID + ticket to scan.</div>
+          </div>
+        </div>
+
+        <!-- 5. On-range demo window opens -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot blue"></div></div>
+          <div class="tl-card highlighted">
+            <div class="tl-time">11:00 AM</div>
+            <div class="tl-title">On-range demo window opens</div>
+            <div class="tl-sub">Your window: 11:00 AM–12:00 PM &middot; 3 demo tokens</div>
+          </div>
+        </div>
+
+        <!-- 6. Demo 1 EchoCore -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot blue"></div></div>
+          <div class="tl-card highlighted">
+            <div class="tl-time">11:00 AM–</div>
+            <div class="tl-title">Demo 1: EchoCore — Sector 5.56 Compact</div>
+            <div class="tl-sub">#1 &amp; #2 at 2025 Silencer Summit. DMLS Inconel, XCR tech, HUB compatible. Don't miss this.</div>
+          </div>
+        </div>
+
+        <!-- 7. Demo 2 Dead Air -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot blue"></div></div>
+          <div class="tl-card highlighted">
+            <div class="tl-time">11:00 AM–</div>
+            <div class="tl-title">Demo 2: Dead Air — Sandman-S or Nomad-Ti</div>
+            <div class="tl-sub">KeyMo QD, full-auto rated. Direct comparison to your Polonium K.</div>
+          </div>
+        </div>
+
+        <!-- 8. Demo 3 SilencerCo -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot blue"></div></div>
+          <div class="tl-card highlighted">
+            <div class="tl-time">11:00 AM–</div>
+            <div class="tl-title">Demo 3: SilencerCo — Omega 36M</div>
+            <div class="tl-sub">Multi-cal, excellent suppression character, strong QD options.</div>
+          </div>
+        </div>
+
+        <!-- 9. Range window closes -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot green"></div></div>
+          <div class="tl-card">
+            <div class="tl-time">12:00 PM</div>
+            <div class="tl-title">Standard range window closes</div>
+          </div>
+        </div>
+
+        <!-- 10. Lunch -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot amber"></div></div>
+          <div class="tl-card highlighted">
+            <div class="tl-time">12:00 PM</div>
+            <div class="tl-title">Lunch — Red Head Chef food truck</div>
+            <div class="tl-sub">On-site until 2:00 PM</div>
+          </div>
+        </div>
+
+        <!-- 11. Afternoon vendor tables -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot green"></div></div>
+          <div class="tl-card">
+            <div class="tl-time">12:00 PM</div>
+            <div class="tl-title">Afternoon — vendor tables and retail floor</div>
+            <div class="tl-sub">Premium demo window runs 1–4 PM</div>
+          </div>
+        </div>
+
+        <!-- 12. Seminar -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot purple"></div></div>
+          <div class="tl-card highlighted">
+            <div class="tl-time">1:30 PM</div>
+            <div class="tl-title">Black Wing Seminar: Suppressor Maintenance</div>
+            <div class="tl-sub">When and how to clean your suppressor</div>
+          </div>
+        </div>
+
+        <!-- 13. Last call raffle -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot coral"></div></div>
+          <div class="tl-card">
+            <div class="tl-time">4:30 PM</div>
+            <div class="tl-title">Last call for raffle tickets</div>
+            <div class="tl-sub">Demo cease fire</div>
+          </div>
+        </div>
+
+        <!-- 14. Raffle winners -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot coral"></div></div>
+          <div class="tl-card">
+            <div class="tl-time">5:00 PM</div>
+            <div class="tl-title">Raffle winners announced</div>
+            <div class="tl-sub">Event ends &middot; Can leave at 4:30 to beat traffic</div>
+          </div>
+        </div>
+
+        <!-- 15. Depart Black Wing -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot gray"></div></div>
+          <div class="tl-card">
+            <div class="tl-time">5:00 PM</div>
+            <div class="tl-title">Depart Black Wing</div>
+            <div class="tl-sub">I-71 N &middot; ~50 mi, ~55–65 min</div>
+          </div>
+        </div>
+
+        <!-- 16. Home -->
+        <div class="tl-entry">
+          <div class="tl-dot-col"><div class="tl-dot gray"></div></div>
+          <div class="tl-card">
+            <div class="tl-time">~6:00 PM</div>
+            <div class="tl-title">Home</div>
+            <div class="tl-sub">1350 Giel Ave, Lakewood</div>
+          </div>
+        </div>
+
+      </div><!-- /timeline -->
+    </div><!-- /itinerary section -->
+
+    <!-- DEMO PICKS -->
+    <div class="section">
+      <div class="section-title">Demo Picks</div>
+      <div class="demo-cards">
+
+        <div class="demo-card top-pick">
+          <div class="demo-pick-num">Pick 1 &mdash; Top Priority</div>
+          <div class="demo-brand">EchoCore</div>
+          <div class="demo-model">Sector 5.56 Compact</div>
+          <div class="demo-rationale">Took 1st and 2nd place in 5.56 at the 2025 Silencer Summit in its debut year. DMLS Inconel, XCR backpressure tech, HUB/1.375&times;24 compatible, full-auto rated, 6ARC capable. The most interesting can at the event &mdash; priority demo.</div>
+        </div>
+
+        <div class="demo-card">
+          <div class="demo-pick-num">Pick 2</div>
+          <div class="demo-brand">Dead Air</div>
+          <div class="demo-model">Sandman-S or Nomad-Ti</div>
+          <div class="demo-rationale">KeyMo QD is best-in-class. Full-auto rated. Strong direct comparison to the Polonium K in suppression quality and tone.</div>
+        </div>
+
+        <div class="demo-card">
+          <div class="demo-pick-num">Pick 3</div>
+          <div class="demo-brand">SilencerCo</div>
+          <div class="demo-model">Omega 36M</div>
+          <div class="demo-rationale">Best versatility per dollar in 5.56. Multi-cal, robust QD options, excellent suppression character. Good gauge of where the mainstream market sits vs. boutique DMLS players.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ALL VENDORS -->
+    <div class="section">
+      <div class="section-title">All Vendors at OSF 2026</div>
+      <p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;">For reference &mdash; backup options if primary demos aren&rsquo;t available</p>
+      <div class="vendor-cards">
+
+        <div class="vendor-card">
+          <div class="vendor-header">
+            <span class="vendor-name">Dead Air</span>
+            <span class="badge-primary">Primary Pick</span>
+          </div>
+          <div class="vendor-note">Sandman-S (full-size workhorse, KeyMo QD), Nomad-Ti (lighter K-adjacent option). Top-tier QD ecosystem.</div>
+        </div>
+
+        <div class="vendor-card">
+          <div class="vendor-header">
+            <span class="vendor-name">SilencerCo</span>
+            <span class="badge-primary">Primary Pick</span>
+          </div>
+          <div class="vendor-note">Omega 36M (multi-cal, excellent all-rounder). Mainstream benchmark.</div>
+        </div>
+
+        <div class="vendor-card">
+          <div class="vendor-header">
+            <span class="vendor-name">EchoCore</span>
+            <span class="badge-primary">Primary Pick</span>
+          </div>
+          <div class="vendor-note">Sector 5.56 Compact (K-size, 2025 Summit winner), Sector 5.56 Full Size (#1 overall at Summit). Brand new, DMLS Inconel, HUB compatible &mdash; biggest surprise at the event.</div>
+        </div>
+
+        <div class="vendor-card">
+          <div class="vendor-header">
+            <span class="vendor-name">Rugged Suppressors</span>
+          </div>
+          <div class="vendor-note">Razor 556 (lightweight titanium), Surge 762 (multi-cal, dual-taper lock). Solid value-tier, full-auto rated. Good backup if a primary slot opens.</div>
+        </div>
+
+        <div class="vendor-card">
+          <div class="vendor-header">
+            <span class="vendor-name">HuxWrx</span>
+          </div>
+          <div class="vendor-note">Flow 556K (flow-through design, reduced backpressure). Different performance profile than conventional baffled cans &mdash; worth a walkthrough even if you don&rsquo;t use a token.</div>
+        </div>
+
+        <div class="vendor-card">
+          <div class="vendor-header">
+            <span class="vendor-name">Otter Creek Labs</span>
+          </div>
+          <div class="vendor-note">Polonium K 556. You own one &mdash; skip the demo token, just chat with the rep.</div>
+        </div>
+
+        <div class="vendor-card">
+          <div class="vendor-header">
+            <span class="vendor-name">Q</span>
+          </div>
+          <div class="vendor-note">Trash Panda (22LR/multi), Honey Badger (integrally suppressed). Q is less 5.56-focused; interesting brand but lower priority for your goals.</div>
+        </div>
+
+        <div class="vendor-card">
+          <div class="vendor-header">
+            <span class="vendor-name">SureFire</span>
+          </div>
+          <div class="vendor-note">SOCOM556-RC2 (full-size, military heritage), SOCOM556-Mini (compact). Built tough, proven platform. Worth handling if you have a free moment.</div>
+        </div>
+
+        <div class="vendor-card">
+          <div class="vendor-header">
+            <span class="vendor-name">Canik</span>
+          </div>
+          <div class="vendor-note">Suppressor lineup is pistol-focused. Lowest priority for a 5.56 demo token; skip unless you&rsquo;re curious about their pistol cans.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- KEY INFO -->
+    <div class="section">
+      <div class="section-title">Key Info</div>
+      <div class="info-cards">
+
+        <div class="info-card">
+          <div class="info-card-title">Black Wing Shooting Center</div>
+          <p><a href="https://maps.google.com/?q=Black+Wing+Shooting+Center,+3722+Marysville+Rd,+Delaware,+OH+43015" target="_blank" rel="noopener">3722 Marysville Rd, Delaware, OH 43015</a></p>
+          <p>(740) 363-7555</p>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-title">Ticket Issues</div>
+          <p>inet@blackwingsc.com &middot; (740) 363-7555</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-ticket">OSF 2026 &middot; Standard Access &middot; Ticket #01KTP02NDRTN4Q90GJB</div>
+      <div class="footer-tip">Tip: Add to Home Screen for quick access</div>
+    </footer>
+
+  </div><!-- /content -->
+
+</body>
+</html>
