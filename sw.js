@@ -1,4 +1,4 @@
-const CACHE = 'osf-2026-v4';
+const CACHE = 'osf-2026-v5';
 const PRECACHE = ['/', '/index.html', '/sw.js', 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'];
 
 self.addEventListener('install', e => {
