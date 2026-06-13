@@ -500,13 +500,12 @@
       margin-bottom: 14px;
     }
 
-    .qr-img {
-      width: 240px;
-      height: auto;
+    .qr-wrapper {
       background: #fff;
-      padding: 12px;
+      padding: 16px;
       border-radius: 8px;
-      display: block;
+      display: inline-block;
+      line-height: 0;
     }
 
     .qr-sub {
@@ -854,7 +853,7 @@
     <div class="section">
       <div class="qr-card">
         <div class="qr-label">Ticket QR Code</div>
-        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAe8AAAHvCAIAAADy68CaAAAS/klEQVR4nO3dzZXbaJKGUfacMSNhCP1Aycik7GAaQvihWaBTpTOnFohQ4cOXr+5dN4v4fVLNRcR/fvz4cQPgi/ufqw8AgH+BmgMkUHOABGoOkEDNARKoOUACNQdIoOYACdQcIIGaAyRQc4AEag6QQM0BEqg5QAI1B0ig5gAJ1BwggZoDJFBzgARqDpBAzQESqDlAAjUHSKDmAAnUHCCBmgMkUHOABGoOkEDNARKoOUACNQdIoOYAEX5c4eqT/iOs6/r+/n7wjry/v6/rOuFXUOWmTOXgjfhX+Lc5QAI1B0ig5gAJ1BwggZoDJFBzgARqDpBAzQESqDlAAjUHSKDmAAnUHCCBmgMkUHOABGoOkEDNARL879UHcNTbp6sP5ALbp6sP5ALT3vfSTRl5Fvf7/ewvmvamDDDzy/iVan6/3+/3+9UHcoGPj4+Pj485H6CzTXvfSzdl5Fm8vb0ty3L2V8x5UwaY+WX8YjX/66+/rj6Qa7xer6sP4Roz3/fjN2Xms2gIO52qaV9Gv5sDJFBzgARqDpBAzQESqDlAAjUHSKDmAAnUHCCBmgMkUHOABGoOkEDNARKoOUACNQdIoOYACdQcIIGaAyRQc4AE10zd2udWXX0Uf5t2Wmlvz9OAhTW9LUKlA+u9IL3HeAw1/1tvzc2AHTQZy3EGbBEK07vvpSvW2yLUWwxU0tsiVDqw3gvSe4zHUPO/tZe2nL2DJmM5zoCdOGEG/Buwt0WotxiopLdFqHpgjRdk5sfY7+YACdQcIIGaAyRQc4AEag6QQM0BEqg5QAI1B0ig5gAJ1BwggZoDJFBzgARqDpBAzQESqDlAAjUHSKDmAAnUHCCBmgMkUHOABGoOkEDNARKoOUACNQdIoOYACdQcIIGaAyRQc4AEag6QQM0BEqg5QAI1B0ig5gAJ1BwggZoDJFBzgARqDpBAzQASqDlAAjUHSKDmAAnUHCCBmgMkUHOABGoOkEDNARKoOUACNQdIoOYACdQcIIGaAyRQc4AEag6QQM0BEqg5QAI1B0ig5gAJ1BwggZoDJFBzgARqDpBAzQESqDlAAjUHSKDmAAnUHCCBmgMkUHOABGoOkEDNARKoOUACNQdIoOYACdQcIIGaAyT4PxRwrgx5PGJkAAAAASUVORK5CYII=" alt="Ticket QR Code" draggable="false">
+        <div class="qr-wrapper"><div id="qrcode"></div></div>
         <div class="qr-sub">Scan at check-in</div>
       </div>
     </div>
@@ -866,7 +865,18 @@
 
   </div><!-- /content -->
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
+    // ── QR Code ───────────────────────────────────────
+    new QRCode(document.getElementById("qrcode"), {
+      text: "01KTP02NDRTN4Q90GJB",
+      width: 240,
+      height: 240,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
     // ── Theme toggle ─────────────────────────────────
     (function () {
       var html = document.documentElement;
