@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="OSF 2026">
-  <meta name="theme-color" content="#0f0f0f">
+  <meta name="theme-color" content="#0f0f0f" id="themeColorMeta">
   <title>Ohio Suppressor Fest 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,6 +36,46 @@
       --font: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
+    /* ── LIGHT MODE ─────────────────────────────────── */
+    html.light {
+      --bg: #f5f5f0;
+      --bg-card: #ffffff;
+      --bg-card-elevated: rgba(0,0,0,0.03);
+      --bg-card-highlight: rgba(0,0,0,0.04);
+      --border: 1px solid #e0e0d8;
+      --text: #111111;
+      --text-muted: #555555;
+      --text-dim: #999999;
+    }
+
+    html.light .site-header {
+      background: rgba(245,245,240,0.94);
+    }
+
+    html.light .ticket-strip {
+      background: var(--bg-card);
+    }
+
+    html.light .pill {
+      background: rgba(0,0,0,0.05);
+    }
+
+    html.light .timeline::before {
+      background: rgba(0,0,0,0.08);
+    }
+
+    html.light .tl-card.critical {
+      background: rgba(212,160,23,0.08);
+    }
+
+    html.light .tl-card.critical .tl-sub {
+      color: #444;
+    }
+
+    html.light .demo-rationale {
+      color: #555;
+    }
+
     html {
       background: var(--bg);
       color: var(--text);
@@ -63,13 +103,13 @@
       backdrop-filter: saturate(180%) blur(16px);
       -webkit-backdrop-filter: saturate(180%) blur(16px);
       border-bottom: var(--border);
-      padding: 12px 18px;
+      padding: 12px 18px 10px;
       padding-top: max(12px, env(safe-area-inset-top, 12px));
     }
 
     .header-top {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
       gap: 8px;
     }
@@ -86,19 +126,43 @@
     }
 
     .header-conf {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--text-dim);
       font-variant-numeric: tabular-nums;
-      white-space: nowrap;
-      padding-top: 2px;
-      flex-shrink: 0;
+      margin-top: 3px;
     }
 
     .header-meta {
-      margin-top: 3px;
+      margin-top: 2px;
       font-size: 12.5px;
       color: var(--text-muted);
       line-height: 1.4;
+    }
+
+    /* ── THEME TOGGLE ───────────────────────────────── */
+    .theme-toggle {
+      background: none;
+      border: var(--border);
+      border-radius: 7px;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+      color: var(--text-muted);
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.15s;
+    }
+
+    .theme-toggle:active { opacity: 0.6; }
+
+    .theme-toggle svg {
+      width: 17px;
+      height: 17px;
+      display: block;
     }
 
     /* ── MAIN CONTENT ───────────────────────────────── */
@@ -415,6 +479,8 @@
       font-style: italic;
     }
   </style>
+  <!-- Prevent flash of wrong theme -->
+  <script>if(localStorage.getItem('osf-theme')==='light')document.documentElement.classList.add('light');</script>
 </head>
 <body>
 
@@ -422,9 +488,27 @@
   <header class="site-header">
     <div class="header-top">
       <div class="header-title">Ohio Suppressor <span>Fest 2026</span></div>
-      <div class="header-conf">Conf: HSPPRSSRFST20C87007T</div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+        <!-- Sun: shown in dark mode -->
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <line x1="12" y1="2" x2="12" y2="5"/>
+          <line x1="12" y1="19" x2="12" y2="22"/>
+          <line x1="2" y1="12" x2="5" y2="12"/>
+          <line x1="19" y1="12" x2="22" y2="12"/>
+          <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+          <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+          <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+          <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon: shown in light mode -->
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
     </div>
     <div class="header-meta">June 13, 2026 &middot; Black Wing Shooting Center &middot; Delaware, OH</div>
+    <div class="header-conf">Conf: HSPPRSSRFST20C87007T</div>
   </header>
 
   <!-- ── TICKET STRIP ───────────────────────────────── -->
@@ -515,13 +599,13 @@
           </div>
         </div>
 
-        <!-- 8. Demo 3 SilencerCo -->
+        <!-- 8. Demo 3 HuxWrx -->
         <div class="tl-entry">
           <div class="tl-dot-col"><div class="tl-dot blue"></div></div>
           <div class="tl-card highlighted">
             <div class="tl-time">11:00 AM–</div>
-            <div class="tl-title">Demo 3: SilencerCo — Omega 36M</div>
-            <div class="tl-sub">Multi-cal, excellent suppression character, strong QD options.</div>
+            <div class="tl-title">Demo 3: HuxWrx — Flow 556K</div>
+            <div class="tl-sub">Flow-through design with notably different backpressure characteristics than conventional baffled cans.</div>
           </div>
         </div>
 
@@ -628,9 +712,9 @@
 
         <div class="demo-card">
           <div class="demo-pick-num">Pick 3</div>
-          <div class="demo-brand">SilencerCo</div>
-          <div class="demo-model">Omega 36M</div>
-          <div class="demo-rationale">Best versatility per dollar in 5.56. Multi-cal, robust QD options, excellent suppression character. Good gauge of where the mainstream market sits vs. boutique DMLS players.</div>
+          <div class="demo-brand">HuxWrx</div>
+          <div class="demo-model">Flow 556K</div>
+          <div class="demo-rationale">Flow-through design with notably different backpressure characteristics than conventional baffled cans. Worth a direct comparison on the same day as the EchoCore and Dead Air demos.</div>
         </div>
 
       </div>
@@ -652,14 +736,6 @@
 
         <div class="vendor-card">
           <div class="vendor-header">
-            <span class="vendor-name">SilencerCo</span>
-            <span class="badge-primary">Primary Pick</span>
-          </div>
-          <div class="vendor-note">Omega 36M (multi-cal, excellent all-rounder). Mainstream benchmark.</div>
-        </div>
-
-        <div class="vendor-card">
-          <div class="vendor-header">
             <span class="vendor-name">EchoCore</span>
             <span class="badge-primary">Primary Pick</span>
           </div>
@@ -668,16 +744,24 @@
 
         <div class="vendor-card">
           <div class="vendor-header">
-            <span class="vendor-name">Rugged Suppressors</span>
+            <span class="vendor-name">HuxWrx</span>
+            <span class="badge-primary">Primary Pick</span>
           </div>
-          <div class="vendor-note">Razor 556 (lightweight titanium), Surge 762 (multi-cal, dual-taper lock). Solid value-tier, full-auto rated. Good backup if a primary slot opens.</div>
+          <div class="vendor-note">Flow 556K (flow-through design, reduced backpressure). Notably different performance profile than conventional baffled cans &mdash; a direct comparison is worth a demo token.</div>
         </div>
 
         <div class="vendor-card">
           <div class="vendor-header">
-            <span class="vendor-name">HuxWrx</span>
+            <span class="vendor-name">SilencerCo</span>
           </div>
-          <div class="vendor-note">Flow 556K (flow-through design, reduced backpressure). Different performance profile than conventional baffled cans &mdash; worth a walkthrough even if you don&rsquo;t use a token.</div>
+          <div class="vendor-note">Omega 36M (multi-cal, excellent all-rounder). Good mainstream benchmark &mdash; worth handling at the vendor table even without a demo token.</div>
+        </div>
+
+        <div class="vendor-card">
+          <div class="vendor-header">
+            <span class="vendor-name">Rugged Suppressors</span>
+          </div>
+          <div class="vendor-note">Razor 556 (lightweight titanium), Surge 762 (multi-cal, dual-taper lock). Solid value-tier, full-auto rated. Good backup if a primary slot opens.</div>
         </div>
 
         <div class="vendor-card">
@@ -737,6 +821,37 @@
     </footer>
 
   </div><!-- /content -->
+
+  <script>
+    // ── Theme toggle ─────────────────────────────────
+    (function () {
+      var html = document.documentElement;
+      var btn = document.getElementById('themeToggle');
+      var sun = btn.querySelector('.icon-sun');
+      var moon = btn.querySelector('.icon-moon');
+      var meta = document.getElementById('themeColorMeta');
+
+      function applyTheme(isLight) {
+        sun.style.display  = isLight ? 'none'  : 'block';
+        moon.style.display = isLight ? 'block' : 'none';
+        meta.content = isLight ? '#f5f5f0' : '#0f0f0f';
+      }
+
+      // Sync icon to whatever class was applied in <head>
+      applyTheme(html.classList.contains('light'));
+
+      btn.addEventListener('click', function () {
+        var nowLight = html.classList.toggle('light');
+        localStorage.setItem('osf-theme', nowLight ? 'light' : 'dark');
+        applyTheme(nowLight);
+      });
+    })();
+
+    // ── Service worker ────────────────────────────────
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
+  </script>
 
 </body>
 </html>
