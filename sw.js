@@ -1,4 +1,4 @@
-const CACHE = 'osf-2026-v2';
+const CACHE = 'osf-2026-v3';
 const PRECACHE = ['/', '/index.html', '/sw.js'];
 
 self.addEventListener('install', e => {
